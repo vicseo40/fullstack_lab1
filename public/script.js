@@ -19,7 +19,7 @@ async function fetchRecipes() {
         <td>${recipe.cookingTime}</td>
         <td>
           <button onclick="updateRecipe('${recipe._id}')">Update</button>
-          <button onclick="deleteRecipe('${recipe._id}')">Delete</button>
+          <button onclick="confirmDeleteRecipe('${recipe._id}', '${recipe.title}')">Delete</button>
         </td>
       `;
       tableBody.appendChild(row);
@@ -45,6 +45,11 @@ async function addRecipe(event) {
       body: JSON.stringify({ title, ingredients, instructions, cookingTime })
     });
 
+    if (response.status === 409) {
+      alert('Recipe with this title already exists. Please use a different title.');
+      return;
+    }
+
     if (!response.ok) {
       throw new Error(`Error adding recipe: ${response.statusText}`);
     }
@@ -52,6 +57,12 @@ async function addRecipe(event) {
     fetchRecipes();
   } catch (err) {
     console.error('Error adding recipe:', err);
+  }
+}
+
+function confirmDeleteRecipe(id, title) {
+  if (confirm(`Are you sure you want to delete the recipe "${title}"?`)) {
+    deleteRecipe(id);
   }
 }
 
@@ -73,7 +84,6 @@ async function deleteRecipe(id) {
 
 async function updateRecipe(id) {
   try {
-    // Get the updated data from the user 
     const title = prompt("Enter new title:");
     const ingredients = prompt("Enter new ingredients (comma separated):").split(',').map(ing => ing.trim());
     const instructions = prompt("Enter new instructions:");
