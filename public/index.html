@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipes</title>
+</head>
+<body>
+  <h1>Recipe List</h1>
+  <table id="recipesTable">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Ingredients</th>
+        <th>Instructions</th>
+        <th>Cooking Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <h2>Add New Recipe</h2>
+  <form id="recipeForm">
+    <input type="text" id="title" placeholder="Title" required>
+    <input type="text" id="ingredients" placeholder="Ingredients" required>
+    <input type="text" id="instructions" placeholder="Instructions" required>
+    <input type="number" id="cookingTime" placeholder="Cooking Time" required>
+    <button type="submit">Add Recipe</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
